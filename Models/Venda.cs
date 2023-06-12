@@ -8,7 +8,7 @@ public class Venda
 {
     public int Id {get; set;}
 
-    public string ArtigoId {get; set;}
+    public int ArtigoId {get; set;}
     public int Quantidade {get; set;}
     [DataType(DataType.Date)]
     public DateTime DtVenda {get; set;}

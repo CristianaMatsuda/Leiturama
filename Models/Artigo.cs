@@ -20,5 +20,5 @@ public class Artigo
     public decimal Preco {get; set;}
 
     // Atributo de Relacionamento
-    // public virtual Categoria Categoria {get; set;}
+    public virtual Categoria Categoria {get; set;}
 }

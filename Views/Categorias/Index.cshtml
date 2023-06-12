@@ -1,4 +1,4 @@
-@model IEnumerable<Leiturama.Models.Artigo>
+@model IEnumerable<Leiturama.Models.Categoria>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,15 +15,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GeneroId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Preco)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,15 +23,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GeneroId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Preco)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

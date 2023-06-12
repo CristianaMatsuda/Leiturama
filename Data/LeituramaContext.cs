@@ -15,4 +15,6 @@ using Leiturama.Models;
         public DbSet<Leiturama.Models.Artigo> Artigo { get; set; }
 
         public DbSet<Leiturama.Models.Venda> Venda { get; set; }
+
+        public DbSet<Leiturama.Models.Categoria> Categoria { get; set; }
     }

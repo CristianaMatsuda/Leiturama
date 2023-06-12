@@ -9,23 +9,23 @@ using Leiturama.Models;
 
 namespace Leiturama.Controllers
 {
-    public class ArtigosController : Controller
+    public class CategoriasController : Controller
     {
         private readonly LeituramaContext _context;
 
-        public ArtigosController(LeituramaContext context)
+        public CategoriasController(LeituramaContext context)
         {
             _context = context;
         }
 
-        // GET: Artigos
+        // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            var LeituramaContext = _context.Artigo.Include(p => p.Categoria);
+            var LeituramaContext = _context.Categoria.Include(p => p.Artigos);
             return View(await LeituramaContext.ToListAsync());
         }
 
-        // GET: Artigos/Details/5
+        // GET: Categorias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,44 +33,40 @@ namespace Leiturama.Controllers
                 return NotFound();
             }
 
-            var artigo = await _context.Artigo
-                .Include(p => p.Categoria)
+            var categoria = await _context.Categoria
+                .Include(c => c.Artigos)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (artigo == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
 
-            return View(artigo);
+            return View(categoria);
         }
 
-        // GET: Artigos/Create
+        // GET: Categorias/Create
         public IActionResult Create()
         {
-            ViewData["Categorias"] = new SelectList(_context.Categoria, "Id", "Nome");
             return View();
         }
 
-        // POST: Artigos/Create
+        // POST: Categorias/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,CategoriaId,GeneroId,Preco")] Artigo artigo)
+        public async Task<IActionResult> Create([Bind("Id,Nome")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(artigo);
+                _context.Add(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Categorias"] = new SelectList(
-                _context.Categoria, "Id", "Id", artigo.CategoriaId
-            );
-            return View(artigo);
+            return View(categoria);
         }
 
-        // GET: Artigos/Edit/5
+        // GET: Categorias/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,25 +74,22 @@ namespace Leiturama.Controllers
                 return NotFound();
             }
 
-            var artigo = await _context.Artigo.FindAsync(id);
-            if (artigo == null)
+            var categoria = await _context.Categoria.FindAsync(id);
+            if (categoria == null)
             {
                 return NotFound();
             }
-            ViewData["Categorias"] = new SelectList(
-                _context.Categoria, "Id", "Nome", artigo.CategoriaId
-            );
-            return View(artigo);
+            return View(categoria);
         }
 
-        // POST: Artigos/Edit/5
+        // POST: Categorias/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,CategoriaId,GeneroId,Preco")] Artigo artigo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Categoria categoria)
         {
-            if (id != artigo.Id)
+            if (id != categoria.Id)
             {
                 return NotFound();
             }
@@ -105,12 +98,12 @@ namespace Leiturama.Controllers
             {
                 try
                 {
-                    _context.Update(artigo);
+                    _context.Update(categoria);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArtigoExists(artigo.Id))
+                    if (!CategoriaExists(categoria.Id))
                     {
                         return NotFound();
                     }
@@ -121,13 +114,10 @@ namespace Leiturama.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Categorias"] = new SelectList(
-                _context.Categoria, "Id", "Id", artigo.CategoriaId
-            );
-            return View(artigo);
+            return View(categoria);
         }
 
-        // GET: Artigos/Delete/5
+        // GET: Categorias/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,30 +125,30 @@ namespace Leiturama.Controllers
                 return NotFound();
             }
 
-            var artigo = await _context.Artigo
+            var categoria = await _context.Categoria
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (artigo == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
 
-            return View(artigo);
+            return View(categoria);
         }
 
-        // POST: Artigos/Delete/5
+        // POST: Categorias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var artigo = await _context.Artigo.FindAsync(id);
-            _context.Artigo.Remove(artigo);
+            var categoria = await _context.Categoria.FindAsync(id);
+            _context.Categoria.Remove(categoria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ArtigoExists(int id)
+        private bool CategoriaExists(int id)
         {
-            return _context.Artigo.Any(e => e.Id == id);
+            return _context.Categoria.Any(e => e.Id == id);
         }
     }
 }

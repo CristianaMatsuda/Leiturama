@@ -9,7 +9,6 @@ public class Venda
     public int Id {get; set;}
 
     public string ArtigoId {get; set;}
-    public int GeneroId {get; set;}
     [DataType(DataType.Date)]
     public DateTime Validade {get; set;}
 

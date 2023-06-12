@@ -9,8 +9,9 @@ public class Venda
     public int Id {get; set;}
 
     public string ArtigoId {get; set;}
+    public int Quantidade {get; set;}
     [DataType(DataType.Date)]
-    public DateTime Validade {get; set;}
+    public DateTime DtVenda {get; set;}
 
     // Atributo de Relacionamento
     // public virtual Categoria Categoria {get; set;}

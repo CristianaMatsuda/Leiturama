@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace Leiturama.Models;
 
-public class Categoria
+public class Genero
 {
     public int Id {get; set;}
-    [Display(Name="Categoria")]
+    [Display(Name="Gênero")]
     public string Nome {get; set;}
 
     // Atributo de Relacionamento
